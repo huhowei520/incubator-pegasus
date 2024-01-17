@@ -20,7 +20,7 @@ set -e
 
 LOCAL_HOSTNAME=`hostname -f`
 PID=$$
-ROOT=`pwd`
+ROOT=`cd "$(dirname "$0")" && pwd`
 export BUILD_ROOT_DIR=${ROOT}/build
 export BUILD_LATEST_DIR=${BUILD_ROOT_DIR}/latest
 export REPORT_DIR="$ROOT/test_report"
@@ -1720,8 +1720,8 @@ function run_shell()
     fi
 
     cd ${ROOT}
-    ln -s -f ${BUILD_LATEST_DIR}/output/bin/pegasus_shell/pegasus_shell
-    ./pegasus_shell ${CONFIG} $CLUSTER_NAME
+    #ln -s -f ${BUILD_LATEST_DIR}/output/bin/pegasus_shell/pegasus_shell
+    ${BUILD_LATEST_DIR}/output/bin/pegasus_shell/pegasus_shell ${CONFIG} $CLUSTER_NAME
     # because pegasus shell will catch 'Ctrl-C' signal, so the following commands will be executed
     # even user inputs 'Ctrl-C', so that the temporary config file will be cleared when exit shell.
     # however, if it is the specified config file, do not delete it.
